@@ -1,3 +1,7 @@
+/*global ResponseBuilder*/
+/*global ApiRequest*/
+/*global ElasticSearchQuery*/
+/*global sails*/
 /**
  * OsmController
  *
@@ -6,28 +10,59 @@
  */
 
 var elasticsearch = require('elasticsearch');
+var underscore = require('underscore');
 
 var client = new elasticsearch.Client({
-  host: 'localhost:9200',
-  // log: logging.ElasticsearchLogger,
+  host: sails.config.osm.esServer,
 
   // Note that this doesn't abort the query.
   requestTimeout: 10000  // milliseconds
 });
 
-
 module.exports = {
   get: function(req, res) {
 
-    client.search({index:'osm', 'comment': 'Iraq'}).then(function(body) {
-      // if (body.hits.hits.length == 0) {
-      //   ApiError(response, 'NOT_FOUND', 'No matches found!');
-      // }
+    try {
+      res = ResponseBuilder.setHeaders(res);
 
-      return res.json(body.hits.hits);
-    });
+      var params = ApiRequest.checkParams(req.query);
 
-    // return res.json({'hi': 'bye'});
+      var query = ElasticSearchQuery.buildQuery(params);
+
+      client.search({index: 'osm', body: query.toJSON(), size: params.limit}).then(function(body) {
+
+        if (body.hits.hits.length === 0) {
+          res.badRequest({error: 'Nothing Found'});
+        }
+
+        var responseJson = {};
+
+        responseJson.meta = underscore.clone(sails.config.osm.meta);
+
+        responseJson.meta.results = {
+          'limit': params.limit,
+          'total': body.hits.total
+        };
+
+        responseJson.results = [];
+        for (var i = 0; i < body.hits.hits.length; i++) {
+          var es_results = body.hits.hits[i]._source;
+          for (var j = 0; j < sails.config.osm.fields_to_remove.length; j++) {
+            delete es_results[sails.config.osm.fields_to_remove[j]];
+          }
+          responseJson.results.push(es_results);
+        }
+
+        return res.json(responseJson);
+      }, function(error) {
+        res.badRequest({'SERVER_ERROR': 'Check your request and try again',
+                        'message': error.message});
+      });
+    }
+    catch (e) {
+      res.badRequest(e);
+    }
+
   }
 };
 
