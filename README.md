@@ -6,25 +6,25 @@ This is a [Sails](http://sailsjs.org) application.
 
 ## Setup
 
-  npm install
+    npm install
 
 **Bootstrap Elastic Search if this is the first time:**
 
-  node bootstrap.js
+    node bootstrap.js
 
 **To run locally:**
 
-  sails lift
+    sails lift
 
 **Run with live reload:**
 
-  forever --watch app.js
+    forever --watch app.js
 
 ## API Guide
 
 ### Endpoints:
 
-  /osm
+    /osm
 
 | Parameters | Example | Definition
 | ----    | ----- | -----
