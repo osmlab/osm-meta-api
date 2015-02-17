@@ -8,18 +8,6 @@ var API_MAX_LIMIT = sails.config.osm.api_max_limit;
 
 module.exports = {
 
-  apiCheck: function(res, req) {
-    try {
-      return exports.checkParams(req.query);
-    } catch (e) {
-      // log.error(e);
-      if (e.name == API_REQUEST_ERROR) {
-        res.badRequest(e.message);
-      }
-      return null;
-    }
-  },
-
   checkParams: function(params) {
     // Ensure we only have params that are expected.
     _.forEach(params, function(value, key) {
@@ -30,6 +18,42 @@ module.exports = {
         };
       }
     });
+
+    if (typeof params.search === 'undefined') {
+      params.search = '';
+    }
+
+    // If hash is included convert it to search paramters
+    if (params.hash) {
+      if (params.search.length > 1) params.search += ' AND ';
+      params.search += 'comment:#' + params.hash;
+
+      delete params.hash;
+    }
+
+    // If comment is included convert it to search paramters
+    if (params.comment) {
+      if (params.search.length > 1) params.search += ' AND ';
+      params.search += 'comment:' + params.comment;
+
+      delete params.comment;
+    }
+
+    // If user is included convert it to search paramters
+    if (params.user) {
+      if (params.search.length > 1) params.search += ' AND ';
+      params.search += 'user:' + params.user;
+
+      delete params.user;
+    }
+
+    // If date is included convert it to search paramters
+    if (params.date) {
+      if (params.search.length > 1) params.search += ' AND ';
+      params.search += 'closed_at:' + params.date;
+
+      delete params.date;
+    }
 
     if (params.limit) {
       var limit = parseInt(params.limit);
@@ -43,7 +67,7 @@ module.exports = {
     }
 
     // Limit to 100 results per search request.
-    if (!params.count && params.limit && params.limit > API_LIMIT) {
+    if (params.limit && params.limit > API_LIMIT) {
       throw {
         name: API_REQUEST_ERROR,
         message: 'Limit cannot exceed ' + API_LIMIT.toString() + ' results for search requests. Use ' +
@@ -52,7 +76,7 @@ module.exports = {
     }
 
     // Limit to 1000 results per count request.
-    if (params.count && params.limit && params.limit > API_MAX_LIMIT) {
+    if (params.limit && params.limit > API_MAX_LIMIT) {
       throw {
         name: API_REQUEST_ERROR,
         message: 'Limit cannot exceed ' + API_MAX_LIMIT.toString() + ' results for count requests.'
@@ -62,11 +86,7 @@ module.exports = {
 
     // Set default values for missing params
     if (!params.limit) {
-      if (params.count) {
-        params.limit = 100;
-      } else {
         params.limit = 1;
-      }
     }
 
 

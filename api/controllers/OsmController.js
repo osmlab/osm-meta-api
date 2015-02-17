@@ -29,7 +29,11 @@ module.exports = {
 
       var query = ElasticSearchQuery.buildQuery(params);
 
-      client.search({index: 'osm', body: query.toJSON(), size: params.limit}).then(function(body) {
+      client.search({
+        index: 'osm',
+        type: 'meta',
+        body: query
+      }).then(function(body) {
 
         if (body.hits.hits.length === 0) {
           res.badRequest({error: 'Nothing Found'});
@@ -39,9 +43,12 @@ module.exports = {
 
         responseJson.meta = underscore.clone(sails.config.osm.meta);
 
-        responseJson.meta.results = {
+        responseJson.meta.count = {
+          'returned': body.hits.hits.length,
           'limit': params.limit,
-          'total': body.hits.total
+          'total': body.hits.total,
+          'totalChanges': body.aggregations.totalChanges.value,
+          'usersContributed': body.aggregations.userTotal.buckets.length
         };
 
         responseJson.results = [];
