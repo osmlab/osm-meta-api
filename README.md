@@ -8,6 +8,10 @@ This is a [Sails](http://sailsjs.org) application.
 
     npm install
 
+**Configure Elastic Search if it's not configured:**
+
+    node bootstrap.js
+
 **To run locally:**
 
     sails lift
