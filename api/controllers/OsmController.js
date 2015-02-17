@@ -20,6 +20,11 @@ var client = new elasticsearch.Client({
 });
 
 module.exports = {
+
+  redirect: function(req, res) {
+    res.redirect('/osm');
+  },
+
   get: function(req, res) {
 
     try {
