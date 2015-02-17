@@ -4,9 +4,11 @@
 
 module.exports.osm = {
   esServer: process.env.ES_SERVER || 'localhost:9200',
+  esIndex: process.env.ES_INDEX || 'osm',
+  esType: process.env.ES_TYPE || 'meta',
   serverName: process.env.SERVER_NAME || 'api.developmentseed.org',
   accessControlAllowOrigin: '*',
-  expected_params: ['search', 'count', 'limit', 'skip'],
+  expected_params: ['search', 'limit', 'skip', 'hash', 'comment', 'user', 'date'],
   api_request_error: 'ApiRequestError',
   api_default_limit: 100,
   api_max_limit: 1000,
