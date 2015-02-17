@@ -35,8 +35,8 @@ module.exports = {
       var query = ElasticSearchQuery.buildQuery(params);
 
       client.search({
-        index: 'osm',
-        type: 'meta',
+        index: sails.config.osm.esIndex,
+        type: sails.config.osm.esType,
         body: query
       }).then(function(body) {
 
