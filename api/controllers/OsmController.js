@@ -48,11 +48,13 @@ module.exports = {
 
         responseJson.meta = underscore.clone(sails.config.osm.meta);
 
+        if (!params.skip) params.skip = 0;
+
         responseJson.meta.count = {
           'limit': params.limit,
           'records_returned': body.hits.hits.length,
           'records_skipped': params.skip,
-          'records_remaining': body.hits.total - params.skip,
+          'records_remaining': body.hits.total - params.skip - params.limit,
           'records_found': body.hits.total,
           'total_changes': body.aggregations.totalChanges.value,
           'users_contributed': body.aggregations.userTotal.buckets.length
