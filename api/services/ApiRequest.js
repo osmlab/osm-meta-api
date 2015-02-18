@@ -67,7 +67,7 @@ module.exports = {
     }
 
     // Limit to 100 results per search request.
-    if (params.limit && params.limit > API_LIMIT) {
+    if (params.limit && params.limit > API_MAX_LIMIT) {
       throw {
         name: API_REQUEST_ERROR,
         message: 'Limit cannot exceed ' + API_LIMIT.toString() + ' results for search requests. Use ' +
@@ -75,18 +75,20 @@ module.exports = {
       };
     }
 
-    // Limit to 1000 results per count request.
-    if (params.limit && params.limit > API_MAX_LIMIT) {
-      throw {
-        name: API_REQUEST_ERROR,
-        message: 'Limit cannot exceed ' + API_MAX_LIMIT.toString() + ' results for count requests.'
-      };
+    if (params.skip) {
+      var skip = parseInt(params.skip);
+      if (isNaN(skip)) {
+        throw {
+          name: API_REQUEST_ERROR,
+          message: 'Invalid skip parameter value.'
+        };
+      }
+      params.skip = skip;
     }
-
 
     // Set default values for missing params
     if (!params.limit) {
-        params.limit = 1;
+        params.limit = API_LIMIT;
     }
 
 

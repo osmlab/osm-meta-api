@@ -48,6 +48,8 @@ var exports = module.exports = {
 
     q.size(params.limit);
 
+    if (params.skip) q.from(params.skip);
+
     return q;
   }
 };
