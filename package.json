@@ -1,8 +1,8 @@
 {
-  "name": "testProject",
+  "name": "osm-meta-api",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.1.0",
+  "description": "A nodejs app that provides an API interface for OSM meta data",
   "keywords": [],
   "dependencies": {
     "ejs": "~0.8.4",
@@ -33,8 +33,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ajdevseed/testProject.git"
+    "url": "https://github.com/developmentseed/osm-meta-api.git"
   },
-  "author": "ajdevseed",
+  "author": "developmentseed",
   "license": ""
 }

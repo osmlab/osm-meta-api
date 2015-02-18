@@ -10,6 +10,8 @@ This is a [Sails](http://sailsjs.org) application.
 
 **Bootstrap Elastic Search if this is the first time:**
 
+To install Elastic Search use [this guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html).
+
     node bootstrap.js
 
 **To run locally:**
