@@ -52,6 +52,7 @@ module.exports = {
           'limit': params.limit,
           'records_returned': body.hits.hits.length,
           'records_skipped': params.skip,
+          'records_remaining': body.hits.total - params.skip,
           'records_found': body.hits.total,
           'total_changes': body.aggregations.totalChanges.value,
           'users_contributed': body.aggregations.userTotal.buckets.length
