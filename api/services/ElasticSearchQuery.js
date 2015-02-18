@@ -3,7 +3,7 @@
 var ejs = require('elastic.js');
 
 var ELASTICSEARCH_QUERY_ERROR = 'ElasticsearchQueryError';
-var SUPPORTED_QUERY_RE = '^[0-9a-zA-Z#\.\_\:\(\)\"\\[\\]\{\}\\-\\+\>\<\= ]+$';
+var SUPPORTED_QUERY_RE = '^[0-9a-zA-Z#\*\.\_\:\(\)\"\\[\\]\{\}\\-\\+\>\<\= ]+$';
 
 var DATE_FIELDS = sails.config.date_fields;
 
@@ -47,6 +47,8 @@ var exports = module.exports = {
     q.agg(ejs.TermsAggregation('userTotal').field('user'));
 
     q.size(params.limit);
+
+    if (params.skip) q.from(params.skip);
 
     return q;
   }

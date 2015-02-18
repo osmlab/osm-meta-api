@@ -41,19 +41,23 @@ module.exports = {
       }).then(function(body) {
 
         if (body.hits.hits.length === 0) {
-          res.badRequest({error: 'Nothing Found'});
+          return res.badRequest({error: 'Nothing Found'});
         }
 
         var responseJson = {};
 
         responseJson.meta = underscore.clone(sails.config.osm.meta);
 
+        if (!params.skip) params.skip = 0;
+
         responseJson.meta.count = {
-          'returned': body.hits.hits.length,
           'limit': params.limit,
-          'total': body.hits.total,
-          'totalChanges': body.aggregations.totalChanges.value,
-          'usersContributed': body.aggregations.userTotal.buckets.length
+          'records_returned': body.hits.hits.length,
+          'records_skipped': params.skip,
+          'records_remaining': body.hits.total - params.skip - params.limit,
+          'records_found': body.hits.total,
+          'total_changes': body.aggregations.totalChanges.value,
+          'users_contributed': body.aggregations.userTotal.buckets.length
         };
 
         responseJson.results = [];
@@ -67,12 +71,12 @@ module.exports = {
 
         return res.json(responseJson);
       }, function(error) {
-        res.badRequest({'SERVER_ERROR': 'Check your request and try again',
+        return res.badRequest({'SERVER_ERROR': 'Check your request and try again',
                         'message': error.message});
       });
     }
     catch (e) {
-      res.badRequest(e);
+      return res.badRequest(e);
     }
 
   }
