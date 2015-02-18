@@ -30,11 +30,12 @@ To install Elastic Search use [this guide](http://www.elasticsearch.org/guide/en
 
 | Parameters | Example | Definition
 | ----    | ----- | -----
-| `hash`    | `/osm?hash=notMapped` | search for the hashed data. Do NOT use `#`
+| `hash`    | `/osm?hash=notMapped` | search for the hashed data. **Do NOT use `#`**
 | `comment` | `/osm?hash="this is my comment"` | search in comments
 | `user`  | `/osm?user=username` | search among users
 | `date`  | `/osm?date=[2015-01-10T20:55:08Z+TO+2015-02-10T20:56:00Z]` | search date range in `closed_at` field. You have to follow the correct date format: `YYYY-mm-ddThh:mm:ssZ`
-| `limit` | `/osm?hash=notMapped&limit=24` | set a limit to output. Default is 1. Max is 100
+| `limit` | `/osm?hash=notMapped&limit=24` | set a limit to output. Default is 1. Max is 1000
+| `skip` | `/osm?hash=notMapped&limit=24&skip=100` | skips records. Should be used with limit to create pagination effect
 | `search` | `/osm?search=comment:"thiscomment"+AND+user:username` | search in everything. Use [Apache Lucene - Query Parser Syntax](http://lucene.apache.org/core/2_9_4/queryparsersyntax.html)
 
 ### Sample Output:
