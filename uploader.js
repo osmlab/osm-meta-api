@@ -1,7 +1,9 @@
 var elasticsearch = require('elasticsearch');
+var MetaUtil = require('osm-meta-util');
+var through = require('through');
+var _ = require('lodash');
+
 var config = require('./config/osm.js').osm;
-var MetaUtil = require('./meta-util/osmMetaUtil.js');
-var through = require('through')
 
 var client = new elasticsearch.Client({
   host: config.esServer,
@@ -11,8 +13,9 @@ var client = new elasticsearch.Client({
 });
 
 //Call uploader
-var bulkBuffer = []
-var THRESHOLD = 30000
+var bulkBuffer = [];
+var THRESHOLD = 20000;
+var counter = 0;
 var meta = MetaUtil({
   'delay': 10,
   'start': Number('000598424'),
@@ -21,45 +24,51 @@ var meta = MetaUtil({
   write, //Write function, transform and push buffer at threshold
   function() {
     if (bulkBuffer.length > 0) {
-      pushToES('exit')
+      pushToES('exit');
     } //End function: push contents of buffer and hang up
   }
-  ))
+  ));
 
 function write(buf) {
   //operations on buffer
   var obj = JSON.parse(buf.toString());
+  counter += 1;
+
+  process.stdout.write('Processed: ' + counter + '\r');
 
   //Index action
   bulkBuffer.push({
     'index': {
       '_type': 'meta',
-      '_id': obj['id'],
+      '_id': obj.id,
       '_index': 'osm'
     }
   });
 
   //Index content
-  bulkBuffer.push(obj)
+  bulkBuffer.push(obj);
 
   //Push
   if (bulkBuffer.length >= THRESHOLD) {
-    pushToES();
+    var data = _.clone(bulkBuffer);
+    pushToES(data);
+    bulkBuffer = [];
   }
 }
 
-function pushToES(flag) {
-  client.bulk({ body: bulkBuffer }, function (err, resp) {
+function pushToES(data, flag) {
+  client.bulk({ body: data }, function (err, resp) {
     if (err) {
       console.error(err);
       return;
     }
     if (resp) {
-      console.log('Added ' + resp.items.length + ' records.')
+      // console.log('Added ' + resp.items.length + ' records.');
       if (flag === 'exit') {
-        process.exit(0)
+        process.exit(0);
       }
+      return;
     }
-  })
-  bulkBuffer = []
+    console.log(resp);
+  });
 }
