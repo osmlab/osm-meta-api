@@ -24,7 +24,7 @@ var meta = MetaUtil({
   write, //Write function, transform and push buffer at threshold
   function() {
     if (bulkBuffer.length > 0) {
-      pushToES('exit');
+      pushToES(null, 'exit');
     } //End function: push contents of buffer and hang up
   }
   ));
@@ -67,8 +67,8 @@ function pushToES(data, flag) {
       if (flag === 'exit') {
         process.exit(0);
       }
+      console.log(resp);
       return;
     }
-    console.log(resp);
   });
 }
