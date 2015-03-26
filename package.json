@@ -27,7 +27,8 @@
     "sails": "~0.11.0",
     "sails-disk": "~0.10.0",
     "through": "^2.3.6",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "osm-meta-util": "0.1.1"
   },
   "scripts": {
     "start": "node app.js",
