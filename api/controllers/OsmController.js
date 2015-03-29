@@ -39,7 +39,6 @@ module.exports = {
         type: sails.config.osm.esType,
         body: query
       }).then(function(body) {
-
         if (body.hits.hits.length === 0) {
           return res.badRequest({error: 'Nothing Found'});
         }

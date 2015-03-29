@@ -44,7 +44,7 @@ var exports = module.exports = {
 
     q.agg(ejs.SumAggregation('totalChanges').field('num_changes'));
 
-    q.agg(ejs.TermsAggregation('userTotal').field('user'));
+    q.agg(ejs.TermsAggregation('userTotal').field('user').size(0));
 
     q.size(params.limit);
 
