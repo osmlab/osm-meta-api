@@ -4,7 +4,7 @@ An API to store, aggregate and search through OSM Metadata. The data is uploaded
 
 See below for API endpoint documentation.
 
-A joint project built by Development Seed and the American Red Cross
+A joint project built by [Development Seed](https://github.com/developmentseed) and the [American Red Cross](https://github.com/americanredcross).
 
 ## Dependencies
 
