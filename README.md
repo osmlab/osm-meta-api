@@ -6,6 +6,8 @@ See below for API endpoint documentation.
 
 A joint project built by [Development Seed](https://github.com/developmentseed) and the [American Red Cross](https://github.com/americanredcross).
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 ## Dependencies
 
 You need to install and run Elastic Search using [this guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html)
@@ -17,6 +19,7 @@ export ES_SERVER="http://localhost:9200"
 ```
 ## Installation
 
+Clone the repo
 ```sh
 npm install
 ```

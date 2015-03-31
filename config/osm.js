@@ -3,7 +3,7 @@
  */
 
 module.exports.osm = {
-  esServer: process.env.ES_SERVER || 'localhost:9200',
+  esServer: process.env.ES_SERVER || process.env.BONSAI || 'localhost:9200',
   esIndex: process.env.ES_INDEX || 'osm',
   esType: process.env.ES_TYPE || 'meta',
   serverName: process.env.SERVER_NAME || 'api.developmentseed.org',
