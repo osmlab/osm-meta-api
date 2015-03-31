@@ -1,26 +1,49 @@
 # OSM Meta API
 
-A nodejs app that provides an API interface for OSM meta data.
+An API to store, aggregate and search through OSM Metadata. The data is uploaded using [osm-meta-util](https://github.com/osmlab/osm-meta-util) to an Elastic Search backend and fully indexes the date and comment text. 
 
-This is a [Sails](http://sailsjs.org) application.
+See below for API endpoint documentation.
 
-## Setup
+A joint project built by [Development Seed](https://github.com/developmentseed) and the [American Red Cross](https://github.com/americanredcross).
 
-    npm install
+## Dependencies
 
-**Bootstrap Elastic Search if this is the first time:**
+You need to install and run Elastic Search using [this guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html)
 
-To install Elastic Search use [this guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html).
+Once Elastic search is running, export it's URL to the command line environment, e.g:
 
-    node bootstrap.js
+```sh
+export ES_SERVER="http://localhost:9200"
+```
+## Installation
 
-**To run locally:**
+```sh
+npm install
+```
 
-    sails lift
+**To run**
 
-**Run with live reload:**
+```sh
+npm start
+```
 
-    forever --watch app.js
+## Add data
+
+There are two uploader scripts that can be used to upload data to the Elastic Search database.
+
+### Between two dates
+
+Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g . '001181708' for 2015-02-10 20:56 and '001181721' for 2015-02-10 21:09) 
+
+```sh
+node uploader.js 001181708 001181721
+```
+
+### Continuously 
+
+```sh
+node live-uploader.js
+```
 
 ## API Guide
 
