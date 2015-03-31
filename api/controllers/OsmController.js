@@ -47,17 +47,22 @@ module.exports = {
 
         responseJson.meta = underscore.clone(sails.config.osm.meta);
 
-        if (!params.skip) params.skip = 0;
+        if (!params.skip) {
+          params.skip = 0
+        } 
 
-        responseJson.meta.count = {
-          'limit': params.limit,
-          'records_returned': body.hits.hits.length,
-          'records_skipped': params.skip,
-          'records_remaining': body.hits.total - params.skip - params.limit,
-          'records_found': body.hits.total,
-          'total_changes': body.aggregations.totalChanges.value,
-          'users_contributed': body.aggregations.userTotal.buckets.length
-        };
+        params.skip += params.limit
+      
+        underscore.extend(responseJson.meta, {
+          'count': body.hits.hits.length,
+          'total_edits': body.aggregations.totalChanges.value,
+          'total_contributors': body.aggregations.userTotal.buckets.length,
+          'total_results': body.hits.total,
+          'next_results': '?' + underscore(params)
+                                  .map(function(val, key) {
+                                    return '' + key + '=' + val}
+                                  ).join('&')
+        })
 
         responseJson.results = [];
         for (var i = 0; i < body.hits.hits.length; i++) {
