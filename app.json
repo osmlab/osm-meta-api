@@ -3,6 +3,6 @@
   "description": "An API for searching OSM metadata",
   "repository": "https://github.com/developmentseed/osm-meta-api",
   "logo": "https://node-js-sample.herokuapp.com/node.svg",
-  "keywords": ["node", "osm", "metadata", "openstreetmap"]
+  "keywords": ["node", "osm", "metadata", "openstreetmap"],
   "addons": ["bonsai"]
 }
