@@ -70,62 +70,61 @@ node live-uploader.js
     "credit": "This API is based on the openFDA's API https://github.com/FDA/openfda/tree/master/api ",
     "author": "Development Seed",
     "license": "http://creativecommons.org/publicdomain/zero/1.0/legalcode",
-    "count": {
-      "returned": 3,
-      "limit": 3,
-      "total": 24,
-      "totalChanges": 3559,
-      "usersContributed": 10
-    }
+    "count": 3,
+    "total_edits": 18369,
+    "total_contributors": 191,
+    "total_results": 316,
+    "next_results": "?search=&limit=3&skip=3"
   },
   "results": [
-    {
-      "comment": "Aktualizacja lokalizacji adresów na bazie iMPA dla gminy Orły",
-      "uid": "1410361",
-      "min_lat": "49.8545578",
-      "created_at": "2015-02-10T20:55:10Z",
-      "num_changes": "10",
-      "created_by": "JOSM/1.5 (7995 en)",
-      "max_lon": "22.8355397",
-      "source": "orly.e-mapa.net",
-      "user": "WiktorN",
-      "max_lat": "49.8681715",
-      "closed_at": "2015-02-10T20:55:12Z",
-      "min_lon": "22.8141334",
-      "open": "false",
-      "id": "28759988"
-    },
-    {
-      "comment": "scieżka",
-      "uid": "2641836",
-      "imagery_used": "Bing",
-      "min_lat": "54.0767342",
-      "created_at": "2015-02-10T20:55:11Z",
-      "num_changes": "4",
-      "created_by": "iD 1.6.2",
-      "max_lon": "18.8057471",
-      "user": "Maciej Tczew",
-      "max_lat": "54.0788854",
-      "closed_at": "2015-02-10T20:55:12Z",
-      "min_lon": "18.800052",
-      "open": "false",
-      "id": "28759990"
-    },
-    {
-      "comment": "roads",
-      "uid": "1832883",
-      "min_lat": "49.0487258",
-      "created_at": "2015-02-10T20:55:18Z",
-      "num_changes": "1",
-      "created_by": "JOSM/1.5 (7995 ru)",
-      "max_lon": "140.322819",
-      "user": "Jake Strine",
-      "max_lat": "49.0490797",
-      "closed_at": "2015-02-10T20:55:18Z",
-      "min_lon": "140.322176",
-      "open": "false",
-      "id": "28759994"
-    }
+  {
+    "id": "28759983",
+    "created_at": "2015-02-10T20:55:03Z",
+    "closed_at": "2015-02-10T20:55:08Z",
+    "open": "false",
+    "num_changes": "1",
+    "user": "WJtW",
+    "uid": "2097920",
+    "min_lat": "51.1177388",
+    "max_lat": "51.2104979",
+    "min_lon": "27.7933886",
+    "max_lon": "28.0504439",
+    "source": "survey",
+    "created_by": "JOSM/1.5 (7287 nl)",
+    "comment": "Electrified"
+  },
+  {
+    "id": "28759988",
+    "created_at": "2015-02-10T20:55:10Z",
+    "closed_at": "2015-02-10T20:55:12Z",
+    "open": "false",
+    "num_changes": "10",
+    "user": "WiktorN",
+    "uid": "1410361",
+    "min_lat": "49.8545578",
+    "max_lat": "49.8681715",
+    "min_lon": "22.8141334",
+    "max_lon": "22.8355397",
+    "source": "orly.e-mapa.net",
+    "created_by": "JOSM/1.5 (7995 en)",
+    "comment": "Aktualizacja lokalizacji adresów na bazie iMPA dla gminy Orły"
+  },
+  {
+    "id": "28759990",
+    "created_at": "2015-02-10T20:55:11Z",
+    "closed_at": "2015-02-10T20:55:12Z",
+    "open": "false",
+    "num_changes": "4",
+    "user": "Maciej Tczew",
+    "uid": "2641836",
+    "min_lat": "54.0767342",
+    "max_lat": "54.0788854",
+    "min_lon": "18.800052",
+    "max_lon": "18.8057471",
+    "comment": "scieżka",
+    "created_by": "iD 1.6.2",
+    "imagery_used": "Bing"
+  }
   ]
 }
 
