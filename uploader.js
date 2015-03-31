@@ -17,14 +17,14 @@ var bulkBuffer = [];
 var THRESHOLD = 20000;
 var counter = 0;
 var meta = MetaUtil({
-  'delay': 10,
-  'start': Number('000598424'),
-  'end': Number('001122000')
+  'delay': (process.argv[4] || 100),
+  'start': Number(process.argv[2]),
+  'end': Number(process.argv[3])
 }).pipe(through(
   write, //Write function, transform and push buffer at threshold
   function() {
     if (bulkBuffer.length > 0) {
-      pushToES(null, 'exit');
+      pushToES(bulkBuffer, 'exit');
     } //End function: push contents of buffer and hang up
   }
   ));
