@@ -14,7 +14,10 @@ You can use the button below to deploy the API to Heroku. It will create an Elas
 
 ### Adding data to Heroku
 
-To add data to the Heroku database, you have to run a separate script either locally or on another server. To add data to the Bonsai database, check heroku for the `BONSAI_URL` string. Set your local `ES_SERVER` environment variable to the Bonsai URL. 
+To add data to the Heroku database, you have to run a separate script either locally or on another server. 
+
+1. Check your heroku app for the `BONSAI_URL` configuration variable under 'Settings'. 
+2. Set your local `ES_SERVER` environment variable to the Bonsai URL. 
 
 ```
 export ES_SERVER='MY_BONSAI_URL_FROM_HEROKU'
@@ -57,7 +60,7 @@ There are two uploader scripts that can be used to upload data to the Elastic Se
 
 *Between two dates*
 
-Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g . '001181708' for 2015-02-10 20:56 and '001181721' for 2015-02-10 21:09) 
+Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g . `001181708` for `2015-02-10 20:56` and `001181721` for 2015-02-10 21:09) 
 
 ```sh
 node uploader.js 001181708 001181721
