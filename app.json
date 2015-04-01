@@ -7,5 +7,10 @@
   "addons": ["bonsai"],
   "scripts": {
     "postdeploy": "node bootstrap.js"
+  },
+  "env": {
+    "WORKER_CONCURRENCY": {
+        "value": "1"
+    }
   }
 }
