@@ -4,5 +4,8 @@
   "repository": "https://github.com/developmentseed/osm-meta-api",
   "logo": "https://node-js-sample.herokuapp.com/node.svg",
   "keywords": ["node", "osm", "metadata", "openstreetmap"],
-  "addons": ["bonsai"]
+  "addons": ["bonsai"],
+  "scripts": {
+    "postdeploy": "node bootstrap.js"
+  }
 }
