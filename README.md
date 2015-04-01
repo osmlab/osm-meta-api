@@ -60,7 +60,7 @@ There are two uploader scripts that can be used to upload data to the Elastic Se
 
 *Between two dates*
 
-Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g . `001181708` for `2015-02-10 20:56` and `001181721` for 2015-02-10 21:09) 
+Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g. `001181708` for `2015-02-10 20:56` and `001181721` for 2015-02-10 21:09) 
 
 ```sh
 node uploader.js 001181708 001181721
