@@ -6,9 +6,26 @@ See below for API endpoint documentation.
 
 A joint project built by [Development Seed](https://github.com/developmentseed) and the [American Red Cross](https://github.com/americanredcross).
 
+## Deploying to Heroku
+
+You can use the button below to deploy the API to Heroku. It will create an Elastic Search Bonsai [addon](https://addons.heroku.com/bonsai) so that you can test the database.
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Dependencies
+### Adding data to Heroku
+
+To add data to the Heroku database, you have to run a separate script either locally or on another server. To add data to the Bonsai database, check heroku for the `BONSAI_URL` string. Set your local `ES_SERVER` environment variable to the Bonsai URL. 
+
+```
+export ES_SERVER='MY_BONSAI_URL_FROM_HEROKU'
+```
+
+Then follow the instructions in the "Adding data" section below.
+
+
+## Deploying locally
+
+### Dependencies
 
 You need to install and run Elastic Search using [this guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html)
 
@@ -17,24 +34,28 @@ Once Elastic search is running, export it's URL to the command line environment,
 ```sh
 export ES_SERVER="http://localhost:9200"
 ```
-## Installation
+### Installation
 
-Clone the repo
+Clone the repo and install the npm dependencies
 ```sh
 npm install
 ```
 
-**To run**
+Bootstrap the Elastic Search database
+```sh
+node bootstrap.js
+``` 
 
+Start the server
 ```sh
 npm start
 ```
 
-## Add data
+## Adding data
 
-There are two uploader scripts that can be used to upload data to the Elastic Search database.
+There are two uploader scripts that can be used to upload data to the Elastic Search database. These scripts expect the `ES_SERVER` environment variable to be set.
 
-### Between two dates
+*Between two dates*
 
 Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g . '001181708' for 2015-02-10 20:56 and '001181721' for 2015-02-10 21:09) 
 
@@ -42,7 +63,7 @@ Using the [changeset replication directory](http://planet.osm.org/replication/ch
 node uploader.js 001181708 001181721
 ```
 
-### Continuously 
+*Continuously*
 
 ```sh
 node live-uploader.js
