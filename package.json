@@ -31,7 +31,6 @@
     "osm-meta-util": "0.1.2"
   },
   "scripts": {
-    "postinstall": "node bootstrap.js",
     "start": "node app.js",
     "debug": "node debug app.js"
   },
