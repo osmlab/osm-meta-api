@@ -2,7 +2,7 @@
 
 An API to store, aggregate and search through OSM Metadata. The data is uploaded using [osm-meta-util](https://github.com/osmlab/osm-meta-util) to an Elastic Search backend and fully indexes the date and comment text. 
 
-See the for [API guide for endpoint documentation](https://github.com/developmentseed/osm-meta-api/wiki/API-Guide).
+See the wiki for [API guide for endpoint documentation](https://github.com/developmentseed/osm-meta-api/wiki/API-Guide).
 
 A joint project built by [Development Seed](https://github.com/developmentseed) and the [American Red Cross](https://github.com/americanredcross).
 
