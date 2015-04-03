@@ -6,7 +6,7 @@ var _ = require('lodash');
 var config = require('./config/osm.js').osm;
 
 var client = new elasticsearch.Client({
-  host: config.esServer,
+  host: process.argv[2],
 
   // Note that this doesn't abort the query.
   requestTimeout: 10000  // milliseconds
@@ -17,9 +17,9 @@ var bulkBuffer = [];
 var THRESHOLD = 20000;
 var counter = 0;
 var meta = MetaUtil({
-  'delay': (process.argv[4] || 100),
-  'start': Number(process.argv[2]),
-  'end': Number(process.argv[3])
+  'delay': (process.argv[5] || 100),
+  'start': Number(process.argv[3]),
+  'end': Number(process.argv[4])
 }).pipe(through(
   write, //Write function, transform and push buffer at threshold
   function() {
