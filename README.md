@@ -16,7 +16,7 @@ The heroku deploy button above will start a server API connected to an Elastic S
 
 ## Adding historical data
 
-There's a script in the `uploaders` folder that can be used to upload data between two dates. The script expects the first argument to be the URL of the database. In the case of Heroku, check the app's configuration variables in 'Settings' for the `BONSAI_URL` variable. Set an environment variable `ES_SERVER` to be the value of `BONSAI_URL`.
+There's a script in the `uploaders` folder that can be used to upload data between two dates. The script expects the first argument to be the URL of the database. In the case of Heroku, check the app's configuration variables in 'Settings' for the `BONSAI_URL` variable. Use this as the first argument.
 
 **Uploading data between two dates**
 
