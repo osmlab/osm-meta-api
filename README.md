@@ -8,50 +8,22 @@ A joint project built by [Development Seed](https://github.com/developmentseed) 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/developmentseed/osm-meta-api/tree/feature/heroku-background-job)
 
-## Adding data
+## Deploying to heroku
 
-There are two uploader scripts that can be used to upload data to the Elastic Search database. These scripts expect the `ES_SERVER` environment variable to be set. In the case of Heroku, check the app's configuration variables in 'Settings' for the `BONSAI_URL` variable. Set an environment variable `ES_SERVER` to be the value of `BONSAI_URL`.
+The heroku deploy button above will start a server API connected to an Elastic Search database. It will also provision a dyno for live changeset monitoring, but you need to go into the app's `resource` settings and turn it on.
+
+![adding dyno](https://cloud.githubusercontent.com/assets/719357/6984923/e006051c-d9fb-11e4-95b0-31cb07a5b453.png)
+
+## Adding historical data
+
+There's a script in the `uploaders` folder that can be used to upload data between two dates. The script expects the first argument to be the URL of the database. In the case of Heroku, check the app's configuration variables in 'Settings' for the `BONSAI_URL` variable. Set an environment variable `ES_SERVER` to be the value of `BONSAI_URL`.
 
 **Uploading data between two dates**
 
 Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g. `001181708` for `2015-02-10 20:56` and `001181721` for `2015-02-10 21:09`) 
 
 ```sh
-node uploader.js 001181708 001181721
-```
-
-**Uploading data continuously**
-
-```sh
-node live-uploader.js
-```
-
-## Deploying locally
-
-### Dependencies
-
-You need to install and run Elastic Search using [this guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html)
-
-Once Elastic search is running, export the Elastic Search URL location to the command line environment, e.g:
-
-```sh
-export ES_SERVER="http://localhost:9200"
-```
-### Installation
-
-Clone the repo and install the npm dependencies
-```sh
-npm install
-```
-
-Bootstrap the Elastic Search database
-```sh
-node bootstrap.js
-``` 
-
-Start the server
-```sh
-npm start
+node uploader.js DATABASE_URL 001181708 001181721
 ```
 
 ## API Guide
@@ -138,3 +110,51 @@ npm start
 }
 
 ```
+
+## Deploying locally
+
+### Dependencies
+
+You need to install and run Elastic Search using [this guide](http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/setup.html)
+
+Once Elastic search is running, export the Elastic Search URL location to the command line environment, e.g:
+
+```sh
+export ES_SERVER="http://localhost:9200"
+```
+### Installation
+
+Clone the repo and install the npm dependencies
+```sh
+npm install
+```
+
+Bootstrap the Elastic Search database
+```sh
+node bootstrap.js
+``` 
+
+Start the server
+```sh
+npm start
+```
+
+### Adding data
+
+There are two uploader scripts that can be used to upload data to the Elastic Search database. These scripts expect the first argument to be the URL of the database, so you can pass `ES_SERVER`
+
+**Uploading data between two dates**
+
+Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g. `001181708` for `2015-02-10 20:56` and `001181721` for `2015-02-10 21:09`) 
+
+```sh
+node uploader.js $ES_SERVER 001181708 001181721
+```
+
+**Uploading data continuously**
+
+```sh
+node live-uploader.js $ES_SERVER
+```
+
+
