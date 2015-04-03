@@ -2,28 +2,28 @@
 
 An API to store, aggregate and search through OSM Metadata. The data is uploaded using [osm-meta-util](https://github.com/osmlab/osm-meta-util) to an Elastic Search backend and fully indexes the date and comment text. 
 
-See below for API endpoint documentation.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+See the for [API guide for endpoint documentation](https://github.com/developmentseed/osm-meta-api/wiki/API-Guide).
 
 A joint project built by [Development Seed](https://github.com/developmentseed) and the [American Red Cross](https://github.com/americanredcross).
 
-## Adding data
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-There are two uploader scripts that can be used to upload data to the Elastic Search database. These scripts expect the `ES_SERVER` environment variable to be set. In the case of Heroku, check the app's configuration variables in 'Settings' for the `BONSAI_URL` variable. Set an environment variable `ES_SERVER` to be the value of `BONSAI_URL`.
+## Deploying to heroku
+
+The heroku deploy button above will start a server API connected to an Elastic Search database. It will also provision a dyno for live changeset monitoring, but you need to go into the app's `resource` settings and turn it on.
+
+![adding dyno](https://cloud.githubusercontent.com/assets/719357/6984923/e006051c-d9fb-11e4-95b0-31cb07a5b453.png)
+
+## Adding historical data
+
+There's a script in the `uploaders` folder that can be used to upload data between two dates. The script expects the first argument to be the URL of the database. In the case of Heroku, check the app's configuration variables in 'Settings' for the `BONSAI_URL` variable. Use this as the first argument.
 
 **Uploading data between two dates**
 
 Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g. `001181708` for `2015-02-10 20:56` and `001181721` for `2015-02-10 21:09`) 
 
 ```sh
-node uploader.js 001181708 001181721
-```
-
-**Uploading data continuously**
-
-```sh
-node live-uploader.js
+node uploader.js DATABASE_URL 001181708 001181721
 ```
 
 ## Deploying locally
@@ -54,87 +54,20 @@ Start the server
 npm start
 ```
 
-## API Guide
+### Adding data
 
-### Endpoints:
+There are two uploader scripts that can be used to upload data to the Elastic Search database. These scripts expect the first argument to be the URL of the database, so you can pass `ES_SERVER`
 
-    /osm
+**Uploading data between two dates**
 
-| Parameters | Example | Definition
-| ----    | ----- | -----
-| `hash`    | `/osm?hash=notMapped` | search for the hashed data. **Do NOT use `#`**
-| `comment` | `/osm?hash="this is my comment"` | search in comments
-| `user`  | `/osm?user=username` | search among users
-| `date`  | `/osm?date=[2015-01-10T20:55:08Z+TO+2015-02-10T20:56:00Z]` | search date range in `closed_at` field. You have to follow the correct date format: `YYYY-mm-ddThh:mm:ssZ`
-| `limit` | `/osm?hash=notMapped&limit=24` | set a limit to output. Default is 1. Max is 1000
-| `skip` | `/osm?hash=notMapped&limit=24&skip=100` | skips records. Should be used with limit to create pagination effect
-| `search` | `/osm?search=comment:"thiscomment"+AND+user:username` | search in everything. Use [Apache Lucene - Query Parser Syntax](http://lucene.apache.org/core/2_9_4/queryparsersyntax.html)
+Using the [changeset replication directory](http://planet.osm.org/replication/changesets/) we get the file numbers for the dates we want to upload (e.g. `001181708` for `2015-02-10 20:56` and `001181721` for `2015-02-10 21:09`) 
 
-### Sample Output:
+```sh
+node uploader.js $ES_SERVER 001181708 001181721
+```
 
-```json
-{
-  "meta": {
-    "about": "OSM Meta API",
-    "credit": "This API is based on the openFDA's API https://github.com/FDA/openfda/tree/master/api ",
-    "author": "Development Seed",
-    "license": "http://creativecommons.org/publicdomain/zero/1.0/legalcode",
-    "count": 3,
-    "total_edits": 18369,
-    "total_contributors": 191,
-    "total_results": 316,
-    "next_results": "?search=&limit=3&skip=3"
-  },
-  "results": [
-  {
-    "id": "28759983",
-    "created_at": "2015-02-10T20:55:03Z",
-    "closed_at": "2015-02-10T20:55:08Z",
-    "open": "false",
-    "num_changes": "1",
-    "user": "WJtW",
-    "uid": "2097920",
-    "min_lat": "51.1177388",
-    "max_lat": "51.2104979",
-    "min_lon": "27.7933886",
-    "max_lon": "28.0504439",
-    "source": "survey",
-    "created_by": "JOSM/1.5 (7287 nl)",
-    "comment": "Electrified"
-  },
-  {
-    "id": "28759988",
-    "created_at": "2015-02-10T20:55:10Z",
-    "closed_at": "2015-02-10T20:55:12Z",
-    "open": "false",
-    "num_changes": "10",
-    "user": "WiktorN",
-    "uid": "1410361",
-    "min_lat": "49.8545578",
-    "max_lat": "49.8681715",
-    "min_lon": "22.8141334",
-    "max_lon": "22.8355397",
-    "source": "orly.e-mapa.net",
-    "created_by": "JOSM/1.5 (7995 en)",
-    "comment": "Aktualizacja lokalizacji adresów na bazie iMPA dla gminy Orły"
-  },
-  {
-    "id": "28759990",
-    "created_at": "2015-02-10T20:55:11Z",
-    "closed_at": "2015-02-10T20:55:12Z",
-    "open": "false",
-    "num_changes": "4",
-    "user": "Maciej Tczew",
-    "uid": "2641836",
-    "min_lat": "54.0767342",
-    "max_lat": "54.0788854",
-    "min_lon": "18.800052",
-    "max_lon": "18.8057471",
-    "comment": "scieżka",
-    "created_by": "iD 1.6.2",
-    "imagery_used": "Bing"
-  }
-  ]
-}
+**Uploading data continuously**
 
+```sh
+node live-uploader.js $ES_SERVER
 ```

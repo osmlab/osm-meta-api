@@ -6,7 +6,7 @@ var _ = require('lodash');
 var config = require('./config/osm.js').osm;
 
 var client = new elasticsearch.Client({
-  host: process.env.ES_SERVER,
+  host: process.argv[2],
 
   // Note that this doesn't abort the query.
   requestTimeout: 10000  // milliseconds
