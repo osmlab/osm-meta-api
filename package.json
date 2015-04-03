@@ -39,6 +39,10 @@
     "type": "git",
     "url": "https://github.com/developmentseed/osm-meta-api.git"
   },
-  "author": "developmentseed",
-  "license": ""
+  "contributors": [
+    "Alireza J <alireza@developmentseed.org>",
+    "Marc Farra <marc@developmentseed.org>",
+    "Dale Kunce <dale.kunce@redcross.org>"
+  ],
+  "license": "BSD"
 }
