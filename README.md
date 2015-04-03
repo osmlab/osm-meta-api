@@ -6,7 +6,7 @@ See below for API endpoint documentation.
 
 A joint project built by [Development Seed](https://github.com/developmentseed) and the [American Red Cross](https://github.com/americanredcross).
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/developmentseed/osm-meta-api/tree/feature/heroku-background-job)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 ## Deploying to heroku
 
