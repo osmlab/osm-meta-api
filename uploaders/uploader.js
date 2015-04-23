@@ -3,7 +3,7 @@ var MetaUtil = require('osm-meta-util');
 var through = require('through');
 var _ = require('lodash');
 
-var config = require('./config/osm.js').osm;
+var config = require('../config/osm.js').osm;
 
 var client = new elasticsearch.Client({
   host: process.argv[2],
