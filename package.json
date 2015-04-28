@@ -1,7 +1,7 @@
 {
   "name": "osm-meta-api",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A nodejs app that provides an API interface for OSM meta data",
   "keywords": [],
   "dependencies": {
@@ -28,7 +28,7 @@
     "sails-disk": "~0.10.0",
     "through": "^2.3.6",
     "underscore": "^1.7.0",
-    "osm-meta-util": "0.1.2"
+    "osm-meta-util": "^0.1.4"
   },
   "scripts": {
     "start": "node app.js",

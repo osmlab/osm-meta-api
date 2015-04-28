@@ -34,7 +34,7 @@ function write(buf) {
   var obj = JSON.parse(buf.toString());
   counter += 1;
 
-  process.stdout.write('Processed: ' + counter + '\r');
+  process.stdout.write('Processed: ' + counter + ' - Last date: ' + obj.created_at + '\r');
 
   //Index action
   bulkBuffer.push({
