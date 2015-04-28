@@ -1,7 +1,7 @@
 {
   "name": "osm-meta-api",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A nodejs app that provides an API interface for OSM meta data",
   "keywords": [],
   "dependencies": {
