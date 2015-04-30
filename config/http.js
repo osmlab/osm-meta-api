@@ -21,7 +21,7 @@ module.exports.http = {
   *                                                                           *
   ****************************************************************************/
 
-  // middleware: {
+  middleware: {
 
   /***************************************************************************
   *                                                                          *
@@ -30,14 +30,14 @@ module.exports.http = {
   *                                                                          *
   ***************************************************************************/
 
-    // order: [
+    order: [
     //   'startRequestTimer',
     //   'cookieParser',
     //   'session',
     //   'myRequestLogger',
     //   'bodyParser',
     //   'handleBodyParserError',
-    //   'compress',
+    'compress'
     //   'methodOverride',
     //   'poweredBy',
     //   '$custom',
@@ -46,7 +46,7 @@ module.exports.http = {
     //   'favicon',
     //   '404',
     //   '500'
-    // ],
+    ]
 
   /****************************************************************************
   *                                                                           *
@@ -71,7 +71,7 @@ module.exports.http = {
 
     // bodyParser: require('skipper')
 
-  // },
+  }
 
   /***************************************************************************
   *                                                                          *
