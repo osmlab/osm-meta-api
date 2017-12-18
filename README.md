@@ -1,5 +1,9 @@
 # OSM Meta API
 
+⚠️
+This API is no longer actively maintained. If you are interested in maintaining it, please contact @kamicut
+⚠️
+
 An API to store, aggregate and search through OSM Metadata. The data is uploaded using [osm-meta-util](https://github.com/osmlab/osm-meta-util) to an Elastic Search backend and fully indexes the date and comment text. 
 
 See the wiki for [API guide for endpoint documentation](https://github.com/osmlab/osm-meta-api/wiki/API-Guide).
